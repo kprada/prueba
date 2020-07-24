@@ -9,7 +9,7 @@
 
 
 
-    <form #form="ngForm" (ngSubmit)="actualizar(form.value)">
+    <form ngNativeValite #form="ngForm" (ngSubmit)="actualizar(form.value)">
 
 
 
@@ -18,7 +18,7 @@
             <div class="col-sm-9 ">
                 <div class="input-group ">
                     <div class="input-group-addon "><i class="ti-user "></i></div>
-                    <input [ngModel]="item.nombre" name="nombre" type="text " class="form-control " placeholder="Nombre ">
+                    <input [ngModel]="item.nombre" name="nombre" type="text " class="form-control" required placeholder="Nombre ">
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="col-sm-9 ">
                 <div class="input-group ">
                     <div class="input-group-addon "><i class="ti-gift  "></i></div>
-                    <input [ngModel]="item.fecha_nacimiento" name="fecha_nacimiento" type="date" class="form-control " placeholder="DD/MM/AAAA ">
+                    <input [ngModel]="item.fecha_nacimiento" name="fecha_nacimiento" type="date" class="form-control" required placeholder="DD/MM/AAAA ">
                 </div>
             </div>
         </div>

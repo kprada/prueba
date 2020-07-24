@@ -5,14 +5,15 @@ import { DogServicesService } from '../../services/dog-services.service';
 import { Razas } from '../../models/razas.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditModalComponent } from './edit-modal.component';
+import  Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-perros',
   templateUrl: './list-perros.component.html',
 })
 export class ListPerrosComponent implements OnInit {
- perros:Perros[]=[];
- razas:Razas;
+
+ lista:Razas;
 
 
 
@@ -22,25 +23,47 @@ export class ListPerrosComponent implements OnInit {
      this.getPerros(params['item']);
      
     });
+
     
   }
 
   ngOnInit(): void {
   }
 
-  getPerros(item:string){
-let data= JSON.parse(item);
-/* console.log(data.perros);
+getPerros(i){
+  this.lista=this.dogsService.list[i];
+console.log(this.lista.perros);
 
- */this.perros=data.perros;
- console.log(this.perros);
- this.razas=data;
- 
+  var cumpleaños=new Date()
+}
 
-  }
+
+
   borrar(i:number){
-   this.razas.perros.splice(i,1);
-   this.dogsService.guardarStorage();
+     
+Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  this.lista.perros.splice(i,1)
+  this.dogsService.guardarStorage();
+  if (result.value) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+
+   
+
+   
 
   }
 
@@ -50,7 +73,15 @@ let data= JSON.parse(item);
     const ref=this.modalService.open(EditModalComponent,{ size: 'lg' }); //se inicializa una constatnte de referencia  con el servicio NgModal y se le pasa el componente donde va a trabajar y como segundo parametro el tamaño del modal
     ref.componentInstance.item= item; //se pasa en una instancia de referencia de una variable llenandola con el usuario que viene en el parametro de la funcion
     ref.result.then((yes)=>{ //abre el modal y devuelve una promesa
-  this.dogsService.guardarStorage();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Perro Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+  
+      this.dogsService.guardarStorage()
   
         console.log('ok click');
   

@@ -15,12 +15,12 @@
     <tbody>
 
 
-        <tr *ngFor="let item of list">
+        <tr *ngFor="let item of list, let i=index">
             <td><img class="pointer" [src]="item.img " class="img-50 img-circle"></td>
             <td>{{item.nombre_raza}} </td>
             <td>{{item.perros.length}} </td>
             <td> <button (click)="showModal(item)" nz-button nzType="primary" nzShape="round"><i nz-icon nzType="plus"></i></button>
-                <button (click)="listarperros(item)" nz-button nzType="default" nzShape="round"><i nz-icon nzType="ordered-list"></i></button>
+                <button (click)="listarperros(i)" nz-button nzType="default" nzShape="round"><i nz-icon nzType="ordered-list"></i></button>
             </td>
         </tr>
 
@@ -32,7 +32,7 @@
 </table>
 
 
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+<nz-modal ngNativeValite [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
     <ng-template #modalTitle>
         <h2>{{razas.nombre_raza}}</h2>
     </ng-template>
@@ -43,11 +43,15 @@
             <div class="form-group">
                 <div class="col-xs-12">
                     <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Name">
+                    <small class="form-text text-danger" *ngIf="nombreValidador">Ingrese al menos un nombre de 5 letras</small>
+
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
                     <input formControlName="fecha_nacimiento" name="fecha_nacimiento" class="form-control" type="date" required placeholder="Fecha">
+                    <small class="form-text text-danger" *ngIf="fechaValidator">Fecha esta vacia o invalida</small>
+
                 </div>
             </div>
 

@@ -5,8 +5,25 @@
     margin-right: 5px;
 }
 
+.back {
+    margin-bottom: 15px;
+}
+
 .img-50 {
     width: 80px;
     height: 80px;
     border-radius: 50px;
+}
+
+.logo {
+    width: 60px;
+    height: 30px;
+}
+
+.send-request {
+    margin-bottom: 16px;
+}
+
+.send-request span {
+    margin-left: 8px;
 }

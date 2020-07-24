@@ -5,8 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Perros } from '../../models/perros.model';
 import { Router } from '@angular/router';
 import  Swal from 'sweetalert2';
-import { stringify } from 'querystring';
-import { map } from 'rxjs/operators';
+
 
 
 
@@ -18,6 +17,7 @@ import { map } from 'rxjs/operators';
 })
 export class WelcomeComponent implements OnInit {
   forma:FormGroup;
+  desde: number=0;
 public list:Razas[]=[];
 public razas:Razas;
 public imagen:string
@@ -29,7 +29,6 @@ isConfirmLoading = false;
     this.list=this.dogService.list;
     this.getbreed();
     this.crearForm();
-    this.getimg();
     
 
    }
@@ -37,6 +36,27 @@ isConfirmLoading = false;
   ngOnInit() {
 
   }
+  get  nombreValidador(){
+    return this.forma.get('nombre').invalid && this.forma.get('nombre').touched;
+  }
+  get  fechaValidator(){
+    return this.forma.get('fecha_nacimiento').invalid && this.forma.get('fecha_nacimiento').touched;
+  }
+
+
+  crearForm(){
+    this.forma= new FormGroup({
+   nombre:new FormControl(null , [Validators.required, Validators.minLength(5)]),
+   fecha_nacimiento:new FormControl(null , Validators.required),
+  
+    });
+  }
+
+
+
+
+
+
   getbreed(){
     this.dogService.getAllBreeds().subscribe((res:any)=>{
      for (const key in res.message) {
@@ -67,17 +87,20 @@ isConfirmLoading = false;
   }
  
 
-  crearForm(){
-    this.forma= new FormGroup({
-   nombre:new FormControl(null , Validators.required),
-   fecha_nacimiento:new FormControl(null , Validators.required),
-  
-    });
-  }
+
 
   add(razas:Razas){
   
-    if (this.forma.invalid) {
+    if (this.forma.invalid) {// VALIDA QUE EL FORMULARIO NO SEA INVALIDO
+      Object.values(this.forma.controls).forEach((control) =>{// RECORRE LOS CAMPOS DEL FIRMULARIOS
+  
+        control.markAllAsTouched(); // VERIFICA CADA CAMPO
+        Swal.fire({
+          title:'Campos Obligatorios',
+          icon:'error'
+        });
+  
+      });
       return;
     }
    let perro:Perros={
@@ -92,12 +115,14 @@ isConfirmLoading = false;
     title:'Registro Exitoso',
     icon:'success'
   });
-
+  this.forma.reset();
   }
-  listarperros(item:Razas){
+  listarperros(item:any){
 /*     console.log(item);
  */    
-this.router.navigate(['/perros',JSON.stringify(item)])
+/* this.router.navigate(['/perros',JSON.stringify(item)]);
+ */this.router.navigate(['/perros',item]);
+
   }
 
 

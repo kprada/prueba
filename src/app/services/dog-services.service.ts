@@ -57,8 +57,8 @@ this.cargarStorage();
 
     if ( localStorage.getItem('data') ) {
       this.list = JSON.parse( localStorage.getItem('data') );
-      console.log(this.list);
-      
+/*       console.log(this.list[0].perros);
+ */      
     } else {
       this.list = [];
     }

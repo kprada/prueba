@@ -1,9 +1,11 @@
+<button type="button" class="btn btn-secondary back " [routerLink]="['/welcome']">Regresar</button>
 <table class="table table-hover">
     <thead>
         <tr>
             <th>#</th>
             <th>Nombre</th>
             <th>Fecha de nacimiento</th>
+            <th>Edad</th>
             <th>Tools</th>
 
         </tr>
@@ -13,10 +15,11 @@
     <tbody>
 
 
-        <tr *ngFor="let item of perros; let i=index">
+        <tr *ngFor="let item of lista.perros; let i=index">
             <td>{{i+1}} </td>
             <td>{{item.nombre}} </td>
             <td>{{item.fecha_nacimiento}} </td>
+            <td></td>
             <td> <button (click)="editPerro(item)" type="button" class="btn btn-success boton "><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#exampleModal"></i></button>
                 <button (click)="borrar(i)" type="button" class="btn btn-danger boton"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
             </td>
