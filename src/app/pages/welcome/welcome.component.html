@@ -1,0 +1,70 @@
+<h3>#Total Razas: {{list.length}}</h3>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Raza</th>
+            <th>Cantidad</th>
+            <th>Tools</th>
+
+        </tr>
+
+
+    </thead>
+    <tbody>
+
+
+        <tr *ngFor="let item of list">
+            <td><img class="pointer" [src]="item.img " class="img-50 img-circle"></td>
+            <td>{{item.nombre_raza}} </td>
+            <td>{{item.perros.length}} </td>
+            <td> <button (click)="showModal(item)" nz-button nzType="primary" nzShape="round"><i nz-icon nzType="plus"></i></button>
+                <button (click)="listarperros(item)" nz-button nzType="default" nzShape="round"><i nz-icon nzType="ordered-list"></i></button>
+            </td>
+        </tr>
+
+
+    </tbody>
+
+
+
+</table>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+        <h2>{{razas.nombre_raza}}</h2>
+    </ng-template>
+
+    <ng-template #modalContent>
+        <form [formGroup]="forma" (ngSubmit)="add(razas)" class="form-horizontal form-material">
+            <br><br><br>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input formControlName="fecha_nacimiento" name="fecha_nacimiento" class="form-control" type="date" required placeholder="Fecha">
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <div class="col-xs-12">
+                    <button class="btn btn-info btn-lg  btn-rounded text-uppercase waves-effect waves-light" type="submit" (nzOnOk)="handleOk()">Crear </button>
+
+
+                </div>
+            </div>
+
+        </form>
+
+    </ng-template>
+
+    <ng-template #modalFooter>
+
+    </ng-template>
+</nz-modal>

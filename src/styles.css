@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+.boton {
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.img-50 {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+}
